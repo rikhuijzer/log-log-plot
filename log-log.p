@@ -16,4 +16,8 @@ set yrange [9.9:100]
 
 fl(x) = a + b * x
 fit fl(x) 'data.dat' u (log($1)):(log($2)) via a,b
-plot exp(fl(log(x))) t 'log approx'
+
+plot \
+    'data.dat' u 1:2 title 'Onderdruk' with points lc rgb "red", \
+    exp(fl(log(x))) t 'log approx'
+
