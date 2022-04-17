@@ -17,7 +17,14 @@ set yrange [9.9:100]
 fl(x) = a + b * x
 fit fl(x) 'data.dat' u (log($1)):(log($2)) via a,b
 
+# Put legend left top.
+set key left top
+# Legend in box.
+set key box width 2 height 2 opaque
+
+# pt 5 is square.
+# pt 7 is circle.
 plot \
-    'data.dat' u 1:2 title 'Onderdruk' with points lc rgb "red", \
-    exp(fl(log(x))) t 'log approx'
+    'data.dat' u 1:2 title 'Onderdruk' with points lc rgb "red" pt 5, \
+    exp(fl(log(x))) title 'Onderdruk' dashtype 2 lc rgb "black"
 
