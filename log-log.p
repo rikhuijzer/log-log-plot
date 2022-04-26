@@ -10,8 +10,9 @@ set ylabel "Volumestroom\n door de\n gebouwschil\n (l/s)" offset -3,1 rotate by 
 set grid
 
 set logscale x
-set xtics (4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
-set xrange [4:100]
+# set xtics 1,100,3000 # 4*10,2
+set for [i=0:5] xtics (1*(10**i), 2*(10**i), 4*(10**i), 6*(10**i), 8*(10**i))
+set xrange [1:1000]
 
 set logscale y
 set ytics (10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
