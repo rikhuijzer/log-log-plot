@@ -9,22 +9,22 @@ set ylabel "Volumestroom\n door de\n gebouwschil\n (l/s)" offset -3,1 rotate by 
 
 set grid
 
-set logscale x
+set logscale x 10
 # set xtics 1,100,3000 # 4*10,2
 set for [i=0:5] xtics (1*(10**i), 2*(10**i), 4*(10**i), 6*(10**i), 8*(10**i))
-set xrange [4:100]
+set xrange [1:400]
 
-set logscale y
+set logscale y 10
 set ytics (10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 set yrange [9.9:100]
 
 # Fit log function on column 1 and 2 in data.dat.
 fl(x) = a + b * x
-fit fl(x) 'data.dat' u (log($1)):(log($2)) via a,b
+fit fl(x) 'data.dat' u (log10($1)):(log10($2)) via a,b
 
 # Fit second log function on column 3 and 4 in data.dat.
 fsl(x) = c + d * x
-fit fsl(x) 'data.dat' u (log($3)):(log($4)) via c,d
+fit fsl(x) 'data.dat' u (log10($3)):(log10($4)) via c,d
 
 # Put legend left top.
 set key left top
@@ -35,7 +35,7 @@ set key box width 2 height 2 opaque
 # pt 7 is circle.
 plot \
     'data.dat' u 1:2 title 'Onderdruk' with points lc rgb "red" pt 5, \
-    exp(fl(log(x))) title 'Onderdruk' dt 2 lc rgb "black", \
+    10**(fl(log10(x))) title 'Onderdruk' dt 2 lc rgb "black", \
     'data.dat' u 3:4 title 'Overdruk' with points lc rgb "red" pt 7, \
-    exp(fsl(log(x))) title 'Overdruk' dt 1 lc rgb "black"
+    10**(fsl(log10(x))) title 'Overdruk' dt 1 lc rgb "black"
 
